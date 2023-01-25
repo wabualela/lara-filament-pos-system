@@ -15,7 +15,6 @@ use Filament\Resources\Concerns\Translatable;
 
 class UserResource extends Resource
 {
-    use Translatable;
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
