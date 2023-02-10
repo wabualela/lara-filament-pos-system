@@ -5,9 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -28,6 +30,13 @@ class ProductResource extends Resource
 
     protected static ?string $pluralLabel = 'المنتجات';
 
+    protected static ?string $navigationGroup = 'المنتجات';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -37,9 +46,29 @@ class ProductResource extends Resource
                         Grid::make()
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('اسم المنتج'),
+                                    ->label('اسم المنتج')
+                                    ->required(),
                                 TextInput::make('quantity')
                                     ->label('الكمية')
+                                    ->numeric(),
+                            ]),
+                        Grid::make()
+                            ->schema([
+                                Select::make('product_categories_id')
+                                    ->label('نوع المنتج')
+                                    ->relationship('category', 'name')
+                                    ->preload()
+                                    ->createOptionForm([
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('اسم نوع المنتج')
+                                    ])
+                                    ->searchable()
+                                    ->required(),
+                                TextInput::make('price')
+                                    ->label('السعر')
+                                    ->required()
+                                    ->suffix('جنية')
                                     ->numeric(),
                             ]),
                         Textarea::make('note')
@@ -56,6 +85,10 @@ class ProductResource extends Resource
                     ->label('اسم المنتج')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('category.name')
+                    ->label('نوع المنتج')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('quantity')
                     ->label('الكمية')
                     ->sortable()
@@ -66,6 +99,7 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

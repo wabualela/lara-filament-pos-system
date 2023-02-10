@@ -12,6 +12,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,6 +27,13 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $pluralLabel = 'انواع المنتجات';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?string $navigationGroup = 'المنتجات';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -33,7 +41,14 @@ class ProductCategoryResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
-                        ->label('اسم نوع المنتج')
+                            ->label('اسم نوع المنتج')
+                            ->required()
+                            ->autofocus()
+                            ->autocomplete()
+                            ->alpha()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->validationAttribute('اسم نوع المنتج')
                     ])
             ]);
     }
@@ -42,8 +57,14 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('logo')
+                    ->circular(),
                 TextColumn::make('name')
                     ->label('اسم نوع المنتج')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('products_count')->counts('products')
+                    ->label('عدد المنتجات')
                     ->sortable()
                     ->searchable(),
             ])
