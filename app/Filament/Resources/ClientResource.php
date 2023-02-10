@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource\RelationManagers;
+use App\Filament\Resources\ClientResource\Widgets\ClientOverview;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -69,11 +70,11 @@ class ClientResource extends Resource
                     ->label('اسم العميل')
                     ->sortable()
                     ->searchable(),
-                    TextColumn::make('tel')
+                TextColumn::make('tel')
                     ->sortable()
                     ->label('رقم التلفون')
                     ->searchable(),
-                    TextColumn::make('address')
+                TextColumn::make('address')
                     ->sortable()
                     ->label('العنوان')
                     ->searchable(),
@@ -102,6 +103,13 @@ class ClientResource extends Resource
             'index' => Pages\ListClients::route('/'),
             'create' => Pages\CreateClient::route('/create'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ClientOverview::class
         ];
     }
 }
