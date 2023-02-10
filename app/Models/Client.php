@@ -9,5 +9,5 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $faillable = ['name', 'tel', 'address'];
+    protected $fillable = ['name', 'tel', 'address'];
 }
