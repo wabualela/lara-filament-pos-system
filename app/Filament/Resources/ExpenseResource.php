@@ -9,12 +9,16 @@ use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -54,13 +58,22 @@ class ExpenseResource extends Resource
                                     ->required()
                                     ->default(now())
                                     ->minDate(now()->yesterday()),
+                                TextInput::make('amount')
+                                    ->numeric()
+                                    ->required()
+                                    ->autocomplete()
+                                    ->suffix('جنيه')
+                                    ->label('المبلغ'),
+                                Select::make('expense_categories_id')
+                                    ->relationship('category', 'name')
+                                    ->preload()
+                                    ->createOptionForm([
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('اسم نوع المنتج')
+                                    ])
+                                    ->required()
                             ]),
-                        TextInput::make('amount')
-                            ->numeric()
-                            ->required()
-                            ->autocomplete()
-                            ->suffix('جنيه')
-                            ->label('المبلغ'),
                         Textarea::make('details')
                             ->label('ملاجظات'),
                     ])
@@ -71,10 +84,29 @@ class ExpenseResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')
+                    ->label('المنصرف')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('category.name')
+                    ->label('نوع المنصرف')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('amount')
+                    ->label('المبلغ')
+                    ->sortable()
+                    ->searchable()
+                    ->money('SDG'),
+                TextColumn::make('created_at')
+                    ->label('التاريخ')
+                    ->sortable()
+                    ->searchable()
+                    ->date()
             ])
             ->filters([
-                //
+                SelectFilter::make('category_name')
+                ->label('نوع المنصرف')
+                ->relationship('category','name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
