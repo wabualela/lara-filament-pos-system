@@ -27,6 +27,8 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $pluralLabel = 'انواع المنتجات';
 
+    protected static ?int $navigationSort = 2;
+
     protected static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

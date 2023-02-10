@@ -32,6 +32,8 @@ class ProductResource extends Resource
 
     protected static ?string $navigationGroup = 'المنتجات';
 
+    protected static ?int $navigationSort = 1;
+
     protected static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -43,7 +45,7 @@ class ProductResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        Grid::make()
+                        Grid::make(3)
                             ->schema([
                                 TextInput::make('name')
                                     ->label('اسم المنتج')
@@ -51,6 +53,17 @@ class ProductResource extends Resource
                                 TextInput::make('quantity')
                                     ->label('الكمية')
                                     ->numeric(),
+                                Select::make('units_id')
+                                    ->label('الوحدة')
+                                    ->relationship('unit', 'name')
+                                    ->preload()
+                                    ->createOptionForm([
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('اسم الوحدة')
+                                    ])
+                                    ->searchable()
+                                    ->required(),
                             ]),
                         Grid::make()
                             ->schema([
