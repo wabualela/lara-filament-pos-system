@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->integer('quantity')->default(0);
-            $table->longText('note');
+            $table->longText('note')->nullable();
             $table->timestamps();
         });
     }

@@ -22,4 +22,14 @@ class Order extends Model
         'order_month',
         'order_year',
     ];
+
+    function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
