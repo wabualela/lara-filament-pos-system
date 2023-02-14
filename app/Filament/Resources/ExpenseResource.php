@@ -73,6 +73,7 @@ class ExpenseResource extends Resource
                                             ->label('اسم نوع المنتج')
                                     ])
                                     ->required()
+                                    ->label('نوع المنصرف')
                             ]),
                         Textarea::make('details')
                             ->label('ملاجظات'),
