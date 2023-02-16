@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
@@ -114,16 +116,32 @@ class ProductResource extends Resource
                     ->label('الكمية')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('selling_price')
+                    ->label('سعر البيع')
+                    ->sortable()
+                    ->searchable()
+                    ->hidden(),
+                TextColumn::make('purchasing_price')
+                    ->label('سعر الشراء')
+                    ->sortable()
+                    ->searchable()
+                    ->hidden(),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('تصدير')
+                    ->withHiddenColumns(),
+            ])->headerActions([
+                FilamentExportHeaderAction::make('تصدير')
+                    ->withHiddenColumns()
             ]);
     }
 
