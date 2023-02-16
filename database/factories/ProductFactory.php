@@ -21,7 +21,8 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->name,
             'quantity' => $this->faker->numberBetween(10,1000),
-            'price' => $this->faker->numberBetween(1000,100000),
+            'selling_price' => $this->faker->numberBetween(1000,100000),
+            'purchasing_price' => $this->faker->numberBetween(1000,100000),
             'note' => $this->faker->realText(),
             'product_categories_id' => ProductCategory::factory(),
             'units_id' => Unit::factory(),
