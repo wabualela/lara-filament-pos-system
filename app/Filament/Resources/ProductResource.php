@@ -45,11 +45,25 @@ class ProductResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        Grid::make(3)
+                        Grid::make()
                             ->schema([
                                 TextInput::make('name')
                                     ->label('اسم المنتج')
                                     ->required(),
+                                Select::make('product_categories_id')
+                                    ->label('نوع المنتج')
+                                    ->relationship('category', 'name')
+                                    ->preload()
+                                    ->createOptionForm([
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('اسم نوع المنتج')
+                                    ])
+                                    ->searchable()
+                                    ->required(),
+                            ]),
+                        Grid::make()
+                            ->schema([
                                 TextInput::make('quantity')
                                     ->label('الكمية')
                                     ->numeric(),
@@ -67,21 +81,15 @@ class ProductResource extends Resource
                             ]),
                         Grid::make()
                             ->schema([
-                                Select::make('product_categories_id')
-                                    ->label('نوع المنتج')
-                                    ->relationship('category', 'name')
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->label('اسم نوع المنتج')
-                                    ])
-                                    ->searchable()
-                                    ->required(),
-                                TextInput::make('price')
-                                    ->label('السعر')
+                                TextInput::make('selling_price')
+                                    ->label('سعر البيع')
                                     ->required()
-                                    ->suffix('جنية')
+                                    ->suffix('جنيه')
+                                    ->numeric(),
+                                TextInput::make('purchasing_price')
+                                    ->label('سعر الشراء')
+                                    ->required()
+                                    ->suffix('جنيه')
                                     ->numeric(),
                             ]),
                         Textarea::make('note')
