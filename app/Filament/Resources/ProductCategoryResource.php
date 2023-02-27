@@ -51,8 +51,6 @@ class ProductCategoryResource extends Resource
                             ->minLength(3)
                             ->maxLength(255)
                             ->validationAttribute(' نوع المنتج'),
-                        // FileUpload::make('logo')
-                        //     ->label('صورة')
                     ])
             ]);
     }
@@ -66,11 +64,6 @@ class ProductCategoryResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('products_count')->counts('products')
-                    ->label('عدد المنتجات')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('products_sum_purchasing_price')
-                    ->sum('products', 'purchasing_price')
                     ->label('عدد المنتجات')
                     ->sortable()
                     ->searchable(),
