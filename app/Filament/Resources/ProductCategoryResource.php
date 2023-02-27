@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductCategoryResource\Pages;
 use App\Filament\Resources\ProductCategoryResource\RelationManagers;
+use App\Filament\Resources\ProductCategoryResource\RelationManagers\ProductsRelationManager;
 use App\Models\ProductCategory;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -24,9 +25,9 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $label = 'نوع المنتج';
+    protected static ?string $label = 'اصناف المنتج';
 
-    protected static ?string $pluralLabel = 'انواع المنتجات';
+    protected static ?string $pluralLabel = 'اصناف المنتجات';
 
     protected static ?int $navigationSort = 2;
 
@@ -44,13 +45,13 @@ class ProductCategoryResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
-                            ->label(' نوع المنتج')
+                            ->label(' اصناف المنتج')
                             ->required()
                             ->autofocus()
                             ->autocomplete()
                             ->minLength(3)
                             ->maxLength(255)
-                            ->validationAttribute(' نوع المنتج'),
+                            ->validationAttribute(' اصناف المنتج'),
                     ])
             ]);
     }
@@ -60,7 +61,7 @@ class ProductCategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(' نوع المنتج')
+                    ->label(' اصناف المنتج')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('products_count')->counts('products')
@@ -82,7 +83,7 @@ class ProductCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductsRelationManager::class
         ];
     }
 
