@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ProductCategoryResource\Pages;
 use App\Filament\Resources\ProductCategoryResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Konnco\FilamentImport\Actions\ImportAction;
+use Konnco\FilamentImport\Actions\ImportField;
 
 class ListProductCategories extends ListRecords
 {
@@ -14,6 +16,12 @@ class ListProductCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            ImportAction::make()
+                ->fields([
+                    ImportField::make('name')
+                        ->label('الصنف')
+                        ->required(),
+                ])
         ];
     }
 }
