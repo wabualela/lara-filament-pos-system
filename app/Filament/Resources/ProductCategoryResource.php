@@ -7,6 +7,7 @@ use App\Filament\Resources\ProductCategoryResource\RelationManagers;
 use App\Models\ProductCategory;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -43,14 +44,15 @@ class ProductCategoryResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
-                            ->label('اسم نوع المنتج')
+                            ->label(' نوع المنتج')
                             ->required()
                             ->autofocus()
                             ->autocomplete()
-                            ->alpha()
                             ->minLength(3)
                             ->maxLength(255)
-                            ->validationAttribute('اسم نوع المنتج')
+                            ->validationAttribute(' نوع المنتج'),
+                        // FileUpload::make('logo')
+                        //     ->label('صورة')
                     ])
             ]);
     }
@@ -59,13 +61,16 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('logo')
-                    ->circular(),
                 TextColumn::make('name')
-                    ->label('اسم نوع المنتج')
+                    ->label(' نوع المنتج')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('products_count')->counts('products')
+                    ->label('عدد المنتجات')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('products_sum_purchasing_price')
+                    ->sum('products', 'purchasing_price')
                     ->label('عدد المنتجات')
                     ->sortable()
                     ->searchable(),
