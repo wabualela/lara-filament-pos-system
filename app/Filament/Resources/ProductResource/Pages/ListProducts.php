@@ -28,7 +28,9 @@ class ListProducts extends ListRecords
                         ->label('سعر الشراء')
                         ->required(),
                     ImportField::make('quantity')
-                        ->label('الكمية')
+                        ->label('الكمية'),
+                        ImportField::make('product_categories_id')
+                        ->label('الصنف')
                 ])
         ];
     }
