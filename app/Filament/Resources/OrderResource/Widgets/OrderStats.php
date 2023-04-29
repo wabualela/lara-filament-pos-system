@@ -22,6 +22,7 @@ class OrderStats extends BaseWidget
 
         return [
             Card::make('Orders', Order::count())
+                ->label(trans('Orders'))
                 ->chart(
                     $orderData
                         ->map(fn (TrendValue $value) => $value->aggregate)
