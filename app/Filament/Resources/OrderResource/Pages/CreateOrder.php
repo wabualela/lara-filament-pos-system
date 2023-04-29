@@ -16,30 +16,17 @@ class CreateOrder extends CreateRecord
 
     protected static string $resource = OrderResource::class;
 
-    protected function afterCreate(): void
-    {
-        $order = $this->record;
-
-        Notification::make()
-            ->title('New order')
-            ->icon('heroicon-o-shopping-bag')
-            ->body("**{$order->client->name} ordered {$order->items->count()} products.**")
-            ->actions([
-                Action::make('View')
-                    ->url(OrderResource::getUrl('edit', ['record' => $order])),
-            ])
-            ->sendToDatabase(auth()->user());
-    }
-
     protected function getSteps(): array
     {
         return [
             Step::make('Order Details')
+                ->label(trans('Order Details'))
                 ->schema([
                     Card::make(OrderResource::getFormSchema())->columns(),
                 ]),
 
             Step::make('Order Items')
+                ->label(trans('Order Details'))
                 ->schema([
                     Card::make(OrderResource::getFormSchema('items')),
                 ]),
