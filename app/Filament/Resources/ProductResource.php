@@ -30,7 +30,7 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $label = 'المنتج';
+    protected static ?string $label = 'منتج';
 
     protected static ?string $pluralLabel = 'المنتجات';
 
