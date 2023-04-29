@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductCategoryResource\Pages;
 use App\Filament\Resources\ProductCategoryResource\RelationManagers;
 use App\Filament\Resources\ProductCategoryResource\RelationManagers\ProductsRelationManager;
+use App\Filament\Resources\ProductCategoryResource\Widgets\ProductCategoryStats;
 use App\Models\ProductCategory;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -84,6 +85,13 @@ class ProductCategoryResource extends Resource
     {
         return [
             ProductsRelationManager::class
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ProductCategoryStats::class,
         ];
     }
 

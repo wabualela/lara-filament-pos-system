@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('number', 32)->unique();
-            $table->decimal('total_price', 12, 2)->nullable();
-            $table->enum('status', ['new', 'processing', 'shipped', 'delivered', 'cancelled'])->default('new');
-            $table->text('notes')->nullable();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('photo')->nullable();
+            $table->enum('gender', ['male', 'female']);
+            $table->string('phone')->nullable();
+            $table->date('birthday')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('customers');
     }
 };

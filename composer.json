@@ -9,6 +9,7 @@
         "alperenersoy/filament-export": "^0.2.8",
         "barryvdh/laravel-snappy": "^1.0",
         "filament/filament": "^2.16",
+        "flowframe/laravel-trend": "^0.1.4",
         "guzzlehttp/guzzle": "^7.2",
         "konnco/filament-import": "^1.2",
         "laravel/framework": "^9.19",

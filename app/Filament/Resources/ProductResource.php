@@ -6,6 +6,8 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Filament\Resources\ProductResource\Widgets\ProductOverview;
+use App\Filament\Resources\ProductResource\Widgets\ProductStats;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Filament\Forms;
@@ -149,6 +151,13 @@ class ProductResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ProductOverview::class
         ];
     }
 

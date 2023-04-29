@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ App::getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,11 +9,12 @@
     <title>{{ $fileName }}</title>
     <style type="text/css" media="all">
         * {
-            font-family: DejaVu Sans, sans-serif !important;
+            font-family: DejaVu Sans, serif;
+            direction: rtl;
         }
 
-        html{
-            width:100%;
+        html {
+            width: 100%;
         }
 
         table {
@@ -37,9 +38,9 @@
         table th {
             font-weight: normal;
         }
-
     </style>
 </head>
+
 <body>
     <table>
         <tr>
@@ -60,4 +61,5 @@
         @endforeach
     </table>
 </body>
+
 </html>
