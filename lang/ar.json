@@ -1,0 +1,26 @@
+{
+    "Product": "المنتح",
+    "Product Count": "عدد المنتجات",
+
+
+    "Custmoer": "العميل",
+    "Customer Name": "اسم العميل",
+    "add new customer": "اضافة عميل جديد",
+
+    "Orders": "طلبات الشراء",
+    "Order Number": "رقم الطلب",
+    "Order Details": "تفاصيل الطلب الشراء",
+    "Order Items": "منتجات طلب الشراء",
+    "Create": "انشاء",
+    "New": "جديد",
+    "Processing": "في الانتظار",
+    "Status": "حالة الطلب",
+    "Cancelled": "الغاء",
+    "Note": "ملاحظات",
+    "Unit Price": "سعر الوحدة",
+    "gty": "الكمية",
+    "Number": "رقم الطلب",
+
+    "Total Price": "السعر الكلي"
+
+}
